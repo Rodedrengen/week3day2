@@ -9,6 +9,7 @@ import dtos.MovieDTO;
 
 import facades.MovieFacade;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
@@ -73,6 +74,18 @@ public class MovieResource {
         List<MovieDTO> list = FACADE.getMoviesByTitle(title);
         
         return Response.ok().entity(new Gson().toJson(list)).build();
+    }
+    
+    @Path("create")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public void dummyCreate(@PathParam("title") String title) {
+        
+        Random rand = new Random();
+        
+        String[] skuespillere = {"navn"+rand.nextInt(100), "navn"+rand.nextInt(100), "navn"+rand.nextInt(100), "navn"+rand.nextInt(100)};
+        
+        FACADE.createMovie(rand.nextInt(2020), "title"+rand.nextInt(10000), skuespillere);
     }
     
 
